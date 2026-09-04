@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Zovian Studio"
+description = "An elegant photography studio website for discovering the studio's portfolio, exploring session offerings, and sending a polished inquiry for a booking."
+version = "1.0.0"
+id = "artifacts/zovian-studio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22319
+
+[services.development]
+run = "pnpm --filter @workspace/zovian-studio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/zovian-studio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/zovian-studio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22319"
+BASE_PATH = "/"
